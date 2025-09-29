@@ -11,6 +11,10 @@ class TaskSchema(BaseModel):
     class Config:
         from_attributes = True
         
+        
+class TaskIDSchema(BaseModel):
+    id: int
+        
 
 class TaskPostSchema(BaseModel):
     title: str

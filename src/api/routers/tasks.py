@@ -1,6 +1,6 @@
 from fastapi import APIRouter, Request, Depends
 
-from db.schemas.tasks import TaskCreateSchema, TaskPostSchema, TaskSchema
+from db.schemas.tasks import TaskCreateSchema, TaskPostSchema, TaskSchema, TaskIDSchema
 from services.tasks import TasksService
 
 from api.dependencies import tasks_service
@@ -19,7 +19,7 @@ async def add_task(
     request: Request,
     task: TaskPostSchema,
     tasks_service: Annotated[TasksService, Depends(tasks_service)],
-):
+) -> TaskIDSchema:
     user_id = request.state.user.get("user_id")
     
     db_task = TaskCreateSchema(
@@ -31,10 +31,9 @@ async def add_task(
     
     task_id = await tasks_service.add(db_task)
         
-    return {
-        "task_id": task_id
-    }
-
+    return TaskIDSchema(
+        id = task_id
+    )
 
 @router.get("")
 async def get_tasks(
@@ -80,9 +79,11 @@ async def delete_task(
     request: Request,
     task_id: int,
     task_service: Annotated[TasksService, Depends(tasks_service)]
-):
+) -> TaskIDSchema:
     user_id = request.state.user.get("user_id")
     
     deleted_id = await task_service.delete(author_id = user_id, id = task_id)
     
-    return {"task_id": deleted_id}
+    return TaskIDSchema(
+        id = deleted_id
+    )

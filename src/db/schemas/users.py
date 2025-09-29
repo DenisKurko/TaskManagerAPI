@@ -10,6 +10,15 @@ class UserSchema(BaseModel):
         from_attributes = True
         
 
+class UserGetSchema(BaseModel):
+    user_id: int
+    username: str
+    
+    
+class UserIDSchema(BaseModel):
+    user_id: int
+        
+
 class UserCreateSchema(BaseModel):
     username: str
     password: str

@@ -32,7 +32,7 @@ class TasksService:
         return task
     
     
-    async def delete(self, **filter_by) -> TaskSchema:
-        task = await self.tasks_repo.delete(**filter_by)
+    async def delete(self, **filter_by):
+        task_id = await self.tasks_repo.delete(**filter_by)
         
-        return task
+        return task_id
