@@ -1,0 +1,53 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+
+# Environment
+.env
+.env.*
+.envfile
+
+# Poetry
+.poetry/
+
+# VSCode
+.vscode/
+
+# Docker
+*.log
+docker-compose.override.yml
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Migrations
+src/migrations/__pycache__/
+
+# Virtualenv
+venv/
+.envrc
+
+# Misc
+*.sqlite3
+*.db
+
+# Ignore test coverage and reports
+htmlcov/
+.coverage
+.coverage.*
+.cache
+
+# Ignore build
+build/
+dist/
+*.egg-info/
+
+# Ignore lock files
+poetry.lock
+
+# Ignore secrets
+secrets.env
