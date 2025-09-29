@@ -18,6 +18,9 @@ import uvicorn
 app = FastAPI(
     version="1.0.0",
     title="Task_Manager_API",
+    swagger_ui_parameters={
+        "defaultModelsExpandDepth": -1
+    }
     
 )
 
