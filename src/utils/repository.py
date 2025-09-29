@@ -1,5 +1,5 @@
 from abc import ABC, abstractmethod
-from sqlalchemy import select, insert, delete
+from sqlalchemy import select, insert, delete, update
 
 from db.db import async_session_maker
 
@@ -40,7 +40,7 @@ class SQLAlchemyRepo(AbstractRepo):
             result_query = await session.execute(statement)
             result_object = result_query.all()
             
-            if result_object == None:
+            if result_object is None:
                 raise NotFoundDBError("Object not found")
             
             return [row[0].to_schema() for row in result_object]
@@ -53,10 +53,23 @@ class SQLAlchemyRepo(AbstractRepo):
             result_query = await session.execute(statement)
             result_object = result_query.first()
             
-            if result_object == None:
+            if result_object is None:
                 raise NotFoundDBError("Object not found")
             
-            return result_object[0].to_schema() # type: ignore
+            return result_object[0].to_schema()
+        
+        
+    async def update(self, id, **data):
+        async with async_session_maker() as session:
+            statement = update(self.model).where(self.model.id == id).values(**data).returning(self.model) # type: ignore
+            result_query = await session.execute(statement)
+            result_object = result_query.first()
+            
+            if result_object is None:
+                raise NotFoundDBError("Object not found")
+            
+            await session.commit()
+            return result_object[0].to_schema()
         
     
     async def delete(self, **filter_by):

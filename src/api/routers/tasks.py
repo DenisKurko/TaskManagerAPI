@@ -61,6 +61,20 @@ async def get_task(
     return task
 
 
+@router.put("/{task_id}")
+async def update_task(
+    request: Request,
+    task_id: int,
+    task_data: TaskPostSchema,
+    tasks_service: Annotated[TasksService, Depends(tasks_service)]
+) -> TaskSchema:
+    user_id = request.state.user.get("user_id")
+    
+    task = await tasks_service.update(id = task_id, author_id = user_id, **task_data.model_dump())
+    
+    return task
+
+
 @router.delete("/{task_id}")
 async def delete_task(
     request: Request,

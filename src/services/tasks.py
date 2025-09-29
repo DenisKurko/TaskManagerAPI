@@ -26,6 +26,12 @@ class TasksService:
         return task
     
     
+    async def update(self, **data) -> TaskSchema:
+        task = await self.tasks_repo.update(**data)
+        
+        return task
+    
+    
     async def delete(self, **filter_by) -> TaskSchema:
         task = await self.tasks_repo.delete(**filter_by)
         
