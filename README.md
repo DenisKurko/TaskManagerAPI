@@ -54,7 +54,7 @@ Task manager pet project powered by FastAPI
    ```
    git clone https://github.com/DenisKurko/TaskManagerAPI.git
 
-   docker compose up -d
+   docker compose up db -d
 
    poetry lock
    poetry run python src/main.py
