@@ -60,6 +60,23 @@ Task manager pet project powered by FastAPI
    poetry run python src/main.py
    ```
 
+### Environment Variables
+
+Create a `.env` file in the project root with the following example:
+
+```env
+JWT_SECRET_KEY=your_jwt_secret_key
+ACCESS_TOKEN_EXP=30
+
+HASH_ALGORITHM=HS256
+
+POSTGRES_USER=user
+POSTGRES_PASSWORD=password
+POSTGRES_DB=taskmanager_db
+POSTGRES_HOST=0.0.0.0
+POSTGRES_PORT=5432
+```
+
 ## Docs
 
 SwagerUI docs: http://localhost:8000/docs#/
